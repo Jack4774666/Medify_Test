@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaBlue Navbar</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --nav-bg: rgba(255, 255, 255, 0.85);
+      --page-bg: #f6f8fb;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --accent: #60a5fa;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --transition: 0.35s ease;
+      --radius: 14px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Poppins", sans-serif;
+      background: var(--page-bg);
+      color: var(--text-dark);
+    }
+
+    /* Navbar container */
+    .navbar-premium {
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.08);
+      transition: background var(--transition), box-shadow var(--transition);
+      animation: navbarEnter 0.8s ease forwards;
+    }
+
+    @keyframes navbarEnter {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Brand logo */
+    .navbar-brand {
+      position: relative;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 0.3px;
+      overflow: hidden;
+      transition: color var(--transition), transform var(--transition);
+    }
+
+    .navbar-brand i {
+      font-size: 1.4rem;
+      transition: transform 0.4s ease, color var(--transition);
+    }
+
+    /* Hover shine */
+    .navbar-brand::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      transition: 0.6s;
+    }
+
+    .navbar-brand:hover::after {
+      left: 130%;
+    }
+
+    /* Hover glow */
+    .navbar-brand:hover {
+      color: var(--primary-dark);
+      transform: scale(1.05);
+      text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+    }
+
+    .navbar-brand:hover i {
+      transform: rotate(10deg) scale(1.1);
+      color: var(--accent);
+    }
+
+    /* Click ripple */
+    .navbar-brand:active {
+      transform: scale(0.97);
+      transition: transform 0.1s ease;
+    }
+
+    /* Nav links */
+    .navbar-premium .nav-link {
+      color: var(--text-dark);
+      font-weight: 500;
+      margin: 0 0.5rem;
+      position: relative;
+      transition: color var(--transition), transform var(--transition);
+    }
+
+    .navbar-premium .nav-link:hover,
+    .navbar-premium .nav-link.active {
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .navbar-premium .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width var(--transition);
+    }
+
+    .navbar-premium .nav-link:hover::after,
+    .navbar-premium .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 30px rgba(37, 99, 235, 0.1);
+      animation: dropdownFade 0.3s ease forwards;
+    }
+
+    @keyframes dropdownFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dropdown-item {
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .dropdown-item:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Search bar */
+    .form-control {
+      border-radius: 25px;
+      border: 1.5px solid var(--accent);
+      padding: 0.45rem 1rem;
+      font-size: 0.95rem;
+      transition: all var(--transition);
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15);
+      border-color: var(--primary);
+    }
+
+    .btn-search {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      color: white;
+      border-radius: 25px;
+      padding: 0.45rem 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: all var(--transition);
+    }
+
+    .btn-search:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateY(-1px);
+    }
+
+    /* Toggler */
+    .navbar-toggler {
+      border: none;
+      outline: none;
+    }
+
+    .navbar-toggler-icon {
+      filter: invert(40%) sepia(100%) saturate(350%) hue-rotate(190deg);
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
+      transform: rotate(90deg);
+    }
+/* ===== Responsive Adjustment ===== */
+@media (max-width: 768px) {
+  .card {
+    min-width: 220px;
+    max-width: 230px;
+  }
+  .img-box {
+    height: 160px;
+  }
+  .carousel-track {
+    gap: 1rem;
+  }
+}
+
+
+/* Keyframes */
+@keyframes slideUp {
+  0% { transform: translateY(40px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes colorPulse {
+  0% { color: #60a5fa; text-shadow: 0 0 10px rgba(96,165,250,0.6); }
+  100% { color: #2563eb; text-shadow: 0 0 20px rgba(37,99,235,0.8); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.2rem; }
+  .hero-subtitle { font-size: 1rem; }
+}
+
+
+    /* Mobile layout */
+    @media (max-width: 991px) {
+      .navbar-nav {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: var(--radius);
+        padding: 1rem 0;
+        margin-top: 1rem;
+      }
+
+      .nav-link {
+        margin: 0.3rem 0;
+      }
+    }
+
+    /* Section style for demo */
+    section.hero {
+      text-align: center;
+      padding: 6rem 1rem;
+      background: linear-gradient(180deg, #f8fbff, #eef3ff);
+      color: var(--text-dark);
+      animation: fadeIn 1.2s ease both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    section.hero h1 {
+      font-weight: 700;
+      font-size: 2.4rem;
+      color: var(--primary-dark);
+    }
+
+    section.hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-top: 0.8rem;
+    }
+
+    /* =================== PREMIUM FOOTER =================== */
+.footer {
+  position: relative;
+  background: radial-gradient(circle at top left, #1e3a8a 0%, #0f172a 100%);
+  color: #e2e8f0;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border-top: 3px solid rgba(96, 165, 250, 0.4);
+}
+
+/* Soft animated overlay */
+.footer-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.2), transparent 70%),
+              radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15), transparent 70%);
+  animation: floatLights 10s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+@keyframes floatLights {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.footer .container {
+  position: relative;
+  z-index: 2;
+}
+
+.footer-brand h3 {
+  color: #93c5fd;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-shadow: 0 0 10px rgba(96,165,250,0.4);
+}
+
+.footer-brand p {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+/* Social icons */
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-right: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: #93c5fd;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.social-links a:hover {
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  color: white;
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+}
+
+/* Titles */
+.footer-title {
+  font-weight: 600;
+  color: #bfdbfe;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.footer-title::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #60a5fa, #2563eb);
+  border-radius: 2px;
+}
+
+/* Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-links a::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background: linear-gradient(90deg, #60a5fa, #2563eb);
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #93c5fd;
+}
+
+.footer-links a:hover::before {
+  width: 100%;
+}
+
+/* Newsletter */
+.newsletter-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.newsletter-form input {
+  flex: 1;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(96,165,250,0.4);
+}
+
+.newsletter-form button {
+  position: absolute;
+  right: 8px;
+  border: none;
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  color: white;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 15px rgba(59,130,246,0.5);
+}
+
+/* Divider */
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 2rem 0;
+}
+
+/* Bottom bar */
+.footer-bottom p {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-legal a {
+  color: #93c5fd;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-legal a:hover {
+  color: white;
+  text-shadow: 0 0 6px rgba(96,165,250,0.6);
+}
+
+/* Floating glow effect */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -100px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(96,165,250,0.3), transparent 70%);
+  filter: blur(60px);
+  animation: floatGlow 8s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes floatGlow {
+  0% { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(20px); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-brand h3 { font-size: 1.4rem; }
+  .footer-title { margin-top: 1rem; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
+}
+
+
+
+
+:root {
+      --primary: #2563eb;
+      --accent: #60a5fa;
+      --dark-bg: #0f172a;
+      --light-bg: #f8fbff;
+      --text-dark: #1e293b;
+      --text-light: #f1f5f9;
+      --radius: 16px;
+    }
+
+    body {
+      font-family: "Inter", "Poppins", sans-serif;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .about-hero {
+      height: 85vh;
+      background: linear-gradient(to right, rgba(15,23,42,0.8), rgba(37,99,235,0.5)), 
+                  url('img/hospital-bg.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: slideDown 1.2s ease both;
+    }
+
+    .about-hero p {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      color: #cbd5e1;
+      animation: fadeInUp 1.6s ease both;
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== CONTENT SECTIONS ===== */
+    .about-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 3rem;
+      opacity: 0;
+      transform: translateY(70px);
+      transition: all 1s ease;
+    }
+
+    .about-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-section:nth-child(even) {
+      flex-direction: row-reverse;
+      background: linear-gradient(90deg, #eef3ff, #f8fbff);
+      border-radius: var(--radius);
+    }
+
+    .about-img {
+      flex: 1;
+      text-align: center;
+    }
+
+    .about-img img {
+      width: 90%;
+      border-radius: var(--radius);
+      box-shadow: 0 15px 45px rgba(37,99,235,0.15);
+      transition: transform 0.8s ease, box-shadow 0.8s ease;
+    }
+
+    .about-section.visible .about-img img {
+      transform: scale(1.02);
+      box-shadow: 0 25px 55px rgba(37,99,235,0.25);
+    }
+
+    .about-text {
+      flex: 1;
+      color: var(--text-dark);
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: #475569;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    /* ===== FINAL CONTACT SECTION ===== */
+    .about-contact {
+      background: linear-gradient(180deg, #1e3a8a, #0f172a);
+      color: var(--text-light);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-contact::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      left: -80px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(59,130,246,0.25), transparent 70%);
+      filter: blur(80px);
+      animation: floatGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateY(0); opacity: 0.7; }
+      100% { transform: translateY(30px); opacity: 1; }
+    }
+
+    .about-contact h2 {
+      font-weight: 700;
+      color: #93c5fd;
+      margin-bottom: 1rem;
+    }
+
+    .about-contact p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      color: white;
+      padding: 0.8rem 1.6rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 20px rgba(59,130,246,0.4);
+    }
+
+    .insta-link i {
+      margin-right: 0.6rem;
+      font-size: 1.2rem;
+    }
+
+    .insta-link:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(96,165,250,0.6);
+    }
+
+    /* ================= HERO SECTION ================= */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 50, 0.5), rgba(0, 0, 90, 0.3));
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-title span {
+  color: #60a5fa;
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+  animation: glowPulse 3s infinite alternate;
+}
+
+.hero-subtitle {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #e2e8f0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(37, 99, 235, 0.9);
+  }
+}
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .about-section:nth-child(even) {
+        flex-direction: column;
+      }
+      .about-img img {
+        width: 100%;
+      }
+    }
+
+    /* ================== NEW: SCROLL STORY SECTIONS ================== */
+
+/* Section shells */
+.section-xl{padding:110px 0}
+.section-lg{padding:90px 0}
+.container-tight{max-width:1100px}
+
+/* Big titles & lead text */
+.kicker{display:inline-flex;gap:.5rem;align-items:center;padding:.25rem .65rem;border-radius:999px;background:rgba(96,165,250,.12); border:1px solid rgba(96,165,250,.3); color:#1e40af; font-weight:800; letter-spacing:.3px}
+.display-hero{font-weight:900; letter-spacing:.2px; font-size:clamp(2rem,4.6vw,3.4rem); margin:10px 0 8px}
+.lead-xl{font-size:clamp(1.05rem,2vw,1.25rem); color:#42526b; line-height:1.8}
+
+/* Reveal animations */
+.reveal{opacity:0; transform:translateY(26px) scale(.98)}
+.reveal.show{opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.6,.2,1)}
+.stagger > *{opacity:0; transform:translateY(16px)}
+.stagger.show > *{opacity:1; transform:none}
+.stagger.show > *{ transition: all .65s cubic-bezier(.2,.6,.2,1)}
+.stagger.show > *:nth-child(1){transition-delay:.05s}
+.stagger.show > *:nth-child(2){transition-delay:.12s}
+.stagger.show > *:nth-child(3){transition-delay:.19s}
+.stagger.show > *:nth-child(4){transition-delay:.26s}
+.stagger.show > *:nth-child(5){transition-delay:.33s}
+
+/* Card aesthetics */
+.card-soft{
+  background:#fff; border:1px solid rgba(147,197,253,.35); border-radius:22px; padding:26px;
+  box-shadow:0 14px 36px rgba(15,23,42,.08);
+}
+
+/* 1) Brand Promise */
+.promise-wrap{background:linear-gradient(180deg,#f7fbff,#eef4ff)}
+.promise-illus{border:1px solid rgba(147,197,253,.4); border-radius:22px; overflow:hidden; box-shadow:0 16px 44px rgba(37,99,235,.15)}
+.promise-illus img{width:100%; height:100%; object-fit:cover; transform:scale(1.04);}
+
+/* 2) Doctor-Managed badges */
+.badges{display:flex;flex-wrap:wrap;gap:12px}
+.badge-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem .8rem;border-radius:999px;background:#fff;border:1px solid rgba(147,197,253,.35);box-shadow:0 8px 20px rgba(15,23,42,.06);font-weight:700;color:#1e40af}
+.badge-pill i{color:var(--primary)}
+
+/* 3) Feature grid (big) */
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1100px){.feature-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.feature-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.feature-grid{grid-template-columns:1fr}}
+.feature{background:#fff;border:1px solid rgba(147,197,253,.35);border-radius:20px;padding:18px 18px 20px}
+.feature h5{font-weight:800;color:#1e40af;margin-top:10px}
+.feature p{color:#566b84;margin:0}
+.icon-wrap{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--accent)); box-shadow:0 10px 22px rgba(37,99,235,.35)}
+
+/* 4) Stats band */
+.stats-band{background:#fff;border:1px solid rgba(147,197,253,.35);border-radius:22px;padding:26px 18px}
+.stat-big h2{font-weight:900;color:#0f172a;font-size:clamp(2rem,5vw,3rem);margin:0}
+.stat-big p{color:#64748b;margin:.25rem 0 0}
+
+/* 5) Timeline scrollytelling */
+.timeline-wrap{background:linear-gradient(180deg,#eef3ff,#f8fbff);border-top:1px solid rgba(147,197,253,.35);border-bottom:1px solid rgba(147,197,253,.35)}
+.timeline{max-width:1100px;margin:0 auto}
+.tline{position:relative;padding-left:28px}
+.tline::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--primary),var(--accent));border-radius:3px;opacity:.6}
+.step{position:relative;padding:16px 18px 16px 22px;margin-bottom:14px;background:#fff;border:1px solid rgba(147,197,253,.35);border-radius:16px;box-shadow:0 10px 26px rgba(15,23,42,.08)}
+.step::after{content:"";position:absolute;left:-6px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:2px solid #fff;box-shadow:0 0 0 3px rgba(96,165,250,.25)}
+
+/* 6) Horizontal product ecosystem (vertical wheel -> horizontal glide) */
+.hz{--h:360px; height:var(--h); position:relative; overflow:hidden; border:1px solid rgba(147,197,253,.35); border-radius:22px; background:#fff; box-shadow:0 16px 40px rgba(15,23,42,.08)}
+.hz .track{position:absolute;inset:0; display:flex; gap:18px; padding:18px; will-change:transform}
+.hz .card{min-width:300px;background:linear-gradient(180deg,#fff,#f7fbff);border:1px solid rgba(147,197,253,.35);border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+.hz .img{height:190px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;border:1px solid rgba(147,197,253,.35)}
+.hz .img img{width:90%;height:90%;object-fit:contain}
+.hz h6{color:#1e40af;font-weight:800;margin:10px 0 4px}
+.hz .meta{display:flex;justify-content:space-between;color:#475569}
+
+/* ===== Enhanced People / Team cards ===== */
+.team-wrap {
+  background: linear-gradient(180deg,#f7fbff 0%, #eef5ff 100%);
+  border-top: 1px solid rgba(147,197,253,.35);
+  border-bottom: 1px solid rgba(147,197,253,.35);
+}
+
+.team-grid-pro{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+@media (max-width: 992px){ .team-grid-pro{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width: 600px){ .team-grid-pro{ grid-template-columns:1fr; } }
+
+.person-card{
+  position: relative;
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(147,197,253,.35);
+  box-shadow: 0 18px 44px rgba(15,23,42,.08);
+  backdrop-filter: blur(8px);
+  display:flex; align-items:center; gap:16px;
+  transform-style: preserve-3d;
+  transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
+}
+.person-card::before{
+  /* subtle gradient ring */
+  content:"";
+  position:absolute; inset:-1px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(96,165,250,.45), rgba(37,99,235,.25), rgba(96,165,250,.1));
+  z-index:0; filter: blur(0.4px);
+  -webkit-mask: 
+     linear-gradient(#000 0 0) padding-box, 
+     linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  padding:1px;
+}
+.person-inner{ position:relative; z-index:1; display:flex; align-items:center; gap:16px; width:100% }
+
+.person-card:hover{
+  box-shadow: 0 28px 64px rgba(37,99,235,.20);
+  background: rgba(255,255,255,.95);
+}
+
+.avatar{
+  position:relative;
+  width:90px; height:90px; min-width:90px;
+  border-radius: 18px; overflow:hidden;
+  background: linear-gradient(135deg, #eaf2ff, #ffffff);
+  border:1px solid rgba(147,197,253,.35);
+  box-shadow: 0 10px 26px rgba(15,23,42,.10);
+  transform: translateZ(20px);
+}
+.avatar img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition: transform .5s ease, filter .35s ease, opacity .35s ease;
+}
+.person-card:hover .avatar img{ transform: scale(1.05); }
+
+.person-meta h5{
+  margin:0 0 2px 0; font-weight:900; letter-spacing:.2px;
+  color:#0f172a;
+}
+.person-meta small{ color:#64748b; font-weight:600 }
+
+.person-meta .underline{
+  position:relative; display:inline-block;
+}
+.person-meta .underline::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px; transform: scaleX(.25); transform-origin:left;
+  transition: transform .45s cubic-bezier(.2,.6,.2,1);
+}
+.person-card:hover .person-meta .underline::after{ transform: scaleX(1); }
+
+/* subtle floating chips (decor) */
+.person-card .chip{
+  position:absolute; right:14px; top:14px;
+  font-size:.7rem; font-weight:800; color:#1e40af;
+  padding:.25rem .5rem; border-radius:999px;
+  background: rgba(96,165,250,.12);
+  border:1px solid rgba(96,165,250,.35);
+  transform: translateZ(40px);
+}
+
+/* entrance animation sync with your .reveal */
+.person-card.reveal{ opacity:0; transform: translateY(18px) scale(.98); }
+.person-card.reveal.show{ opacity:1; transform: none; transition: all .6s cubic-bezier(.2,.6,.2,1); }
+
+/* fallback placeholder when image fails */
+.avatar[data-fallback="true"]{
+  background: linear-gradient(135deg,#e9efff,#f6f9ff);
+}
+.avatar[data-fallback="true"]::after{
+  content:"👤";
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:36px; color:#7aa4ff;
+  filter: drop-shadow(0 2px 6px rgba(37,99,235,.3));
+}
+
+
+/* 8) CTA */
+.cta{color:#fff;border-radius:22px;overflow:hidden;position:relative;background:
+  radial-gradient(800px 300px at 10% -10%, rgba(96,165,250,.35), transparent 40%),
+  radial-gradient(700px 260px at 90% 0%, rgba(59,130,246,.28), transparent 45%),
+  linear-gradient(135deg,#1b2b5f,#0f1b3d); padding:36px 24px; box-shadow:0 18px 42px rgba(2,6,23,.35)}
+.cta .btn{border:none;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-weight:800;border-radius:14px;padding:.8rem 1.2rem}
+
+/* ===== Language switcher styles ===== */
+/* Mobile-first: 3 columns (left | center | right) */
+.navbar .container{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .5rem;
+  position: relative;
+}
+
+.navbar-brand{
+  grid-column: 1;
+  justify-self: start;
+  margin: 0 !important;
+}
+
+.lang-switcher{
+  grid-column: 2;
+  justify-self: center;
+}
+
+.navbar-toggler{
+  grid-column: 3;
+  justify-self: end;
+}
+
+/* Collapse content spans full width beneath */
+.navbar-collapse{
+  grid-column: 1 / -1;
+}
+
+/* Styling for the language button */
+.lang-switcher .btn{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  transition:.3s;
+}
+.lang-switcher .btn:hover{
+  background:rgba(37,99,235,.07);
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.lang-switcher .dropdown-menu .lang-option.active{
+  background:#e7f0ff; color:#1e40af; font-weight:600;
+}
+
+/* Cart badge with pop animation */
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Pop animation for badge */
+    @keyframes badgePop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .cart-badge.pop {
+      animation: badgePop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+/* Desktop: go back to flex, keep pill absolutely centered */
+@media (min-width: 992px){
+  .navbar .container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .lang-switcher{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+  }
+}
+  </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-premium sticky-top py-3">
+  <div class="container">
+
+    <!-- Brand (left) -->
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="fa-solid fa-globe"></i> Medify
+    </a>
+
+    <!-- Language (center) -->
+    <div class="lang-switcher">
+      <div class="dropdown">
+        <button class="btn btn-light rounded-pill px-3 py-2 d-flex align-items-center gap-2 shadow-sm"
+                type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-translate text-primary"></i>
+          <span id="currentLangLabel" class="fw-semibold">English</span>
+        </button>
+        <ul class="dropdown-menu text-center shadow-sm" aria-labelledby="langDropdown">
+          <li><button class="dropdown-item lang-option" data-lang="en">English</button></li>
+          <li><button class="dropdown-item lang-option" data-lang="ku">کوردی</button></li>
+          <li><button class="dropdown-item lang-option" data-lang="ar">العربية</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Toggler (right) -->
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+        <li class="nav-item"><a id="navHome" class="nav-link" href="index.html"><i class="fa-solid fa-house me-1"></i><span>Home</span></a></li>
+        <li class="nav-item"><a id="navTutorial" class="nav-link" href="Tutorial.html"><i class="bi bi-book-half me-1"></i><span>Tutorial</span></a></li>
+        <li class="nav-item"><a id="navAbout" class="nav-link" href="about.html"><i class="fa-solid fa-user me-1"></i><span>About</span></a></li>
+        <li class="nav-item"><a id="navContact" class="nav-link" href="contact.html"><i class="fa-solid fa-envelope me-1"></i><span>Contact</span></a></li>
+        <li class="nav-item">
+            <a id="navCart" class="nav-link position-relative" href="./cart.html">
+              <i class="fa-solid fa-cart-shopping me-1"></i>
+              <span>Cart</span>
+              <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+            </a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="video-container">
+    <video autoplay muted loop playsinline>
+      <source src="./videos/about_image.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">About <span>Medify</span></h1>
+    <p class="hero-subtitle">We are a Trusted Medical Equipment Distributor</p>
+  </div>
+</section>
+<!-- ================== 1) BRAND PROMISE ================== -->
+<section class="section-xl promise-wrap">
+  <div class="container container-tight">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span class="kicker reveal">OUR PROMISE</span>
+        <h2 class="display-hero reveal">Reliable tools. Doctor-led quality. Fair pricing.</h2>
+        <p class="lead-xl reveal">
+          Medify equips doctors, students and clinics with gear that simply works — acoustics you can trust, durability for daily rounds, and design that feels premium without premium markups.
+        </p>
+        <div class="badges mt-3 reveal stagger">
+          <span class="badge-pill"><i class="fa-solid fa-user-doctor"></i> Doctor Managed</span>
+          <span class="badge-pill"><i class="fa-solid fa-shield-heart"></i> Quality Assured</span>
+          <span class="badge-pill"><i class="fa-solid fa-truck-fast"></i> Fast Fulfillment</span>
+          <span class="badge-pill"><i class="fa-solid fa-graduation-cap"></i> Student Kits</span>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="promise-illus reveal">
+          <img src="img/vecteezy_doctor-and-stethoscope-in-hand-touch-modern-medical-network_7436516.jpg" alt="Medify doctors" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 2) FEATURE GRID ================== -->
+<section class="section-lg">
+  <div class="container container-tight">
+    <div class="text-center mb-4">
+      <span class="kicker reveal">WHAT WE PROVIDE</span>
+      <h2 class="display-hero reveal">Clinic-ready equipment</h2>
+      <p class="lead-xl reveal">Carefully selected, batch-tested, and supported by a doctor-led team.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-stethoscope"></i></div>
+        <h5>Acoustic Stethoscopes</h5>
+        <p>Crystal-clear auscultation, lifetime acoustic support.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-heart-circle-bolt"></i></div>
+        <h5>BP & Monitoring</h5>
+        <p>Digital & manual cuffs, QC batch tested for accuracy.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-temperature-low"></i></div>
+        <h5>Thermometers</h5>
+        <p>Fast-read, ±0.1°C tolerance, reliable in rounds.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-fingerprint"></i></div>
+        <h5>Pulse Oximeters</h5>
+        <p>Clinician-tuned SpO₂/PR with robust build.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-syringe"></i></div>
+        <h5>Skills & Suturing</h5>
+        <p>Simulation kits to build confidence pre-clinic.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-kit-medical"></i></div>
+        <h5>Bundles & Bags</h5>
+        <p>Curated kits for students and rotations.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-shield-virus"></i></div>
+        <h5>Clinic Essentials</h5>
+        <p>Daily-use tools and infection control.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon-wrap"><i class="fa-solid fa-headset"></i></div>
+        <h5>After-care Support</h5>
+        <p>Warranties, replacements, and quick responses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 3) STATS ================== -->
+<section class="section-lg">
+  <div class="container container-tight">
+    <div class="stats-band reveal">
+      <div class="row text-center g-4">
+        <div class="col-6 col-lg-3 stat-big"><h2><span class="count" data-target="25000">0</span>+</h2><p>Devices delivered</p></div>
+        <div class="col-6 col-lg-3 stat-big"><h2><span class="count" data-target="120">0</span>+</h2><p>Active SKUs</p></div>
+        <div class="col-6 col-lg-3 stat-big"><h2><span class="count" data-target="300">0</span>+</h2><p>Institutions served</p></div>
+        <div class="col-6 col-lg-3 stat-big"><h2><span class="count" data-target="7">0</span>+</h2><p>Years supporting care</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 4) TIMELINE ================== -->
+<section class="section-xl timeline-wrap">
+  <div class="container container-tight">
+    <div class="text-center mb-4">
+      <span class="kicker reveal">OUR JOURNEY</span>
+      <h2 class="display-hero reveal">Milestones</h2>
+    </div>
+
+    <div class="tline">
+      <div class="step reveal"><strong>2018</strong> — Founded by residents to deliver <em>good gear at fair prices</em>.</div>
+      <div class="step reveal"><strong>2019</strong> — First student kits launch; lifetime acoustic support.</div>
+      <div class="step reveal"><strong>2021</strong> — Expanded clinic partnerships and standardized QC on monitors.</div>
+      <div class="step reveal"><strong>2023</strong> — Nationwide fulfillment; 48-hour turnarounds on core SKUs.</div>
+      <div class="step reveal"><strong>2025</strong> — Medify Care Grants for teaching hospitals & skills labs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 5) HORIZONTAL ECOSYSTEM ================== -->
+<section class="section-lg">
+  <div class="container container-tight">
+    <div class="text-center mb-3">
+      <span class="kicker reveal">ECOSYSTEM</span>
+      <h2 class="display-hero reveal">Everything in one place</h2>
+      <p class="lead-xl reveal">Scroll through our core families — built to work together from lab to ward.</p>
+    </div>
+
+    <div class="hz reveal" id="hz">
+      <div class="track" id="hzTrack">
+        <div class="card">
+          <div class="img"><img src="img/realistic-medical-stethoscope-on-transparent-background-free-png.webp" alt=""></div>
+          <h6>Acoustic Stethoscopes</h6><div class="meta"><span>Pro & Student</span><span>Lifetime acoustics</span></div>
+        </div>
+        <div class="card">
+          <div class="img"><img src="img/Digital Blood Presure.png" alt=""></div>
+          <h6>BP Monitors</h6><div class="meta"><span>Digital & Manual</span><span>QC-tested</span></div>
+        </div>
+        <div class="card">
+          <div class="img"><img src="img/Pulse Oximeter.png" alt=""></div>
+          <h6>Pulse Oximeters</h6><div class="meta"><span>SpO₂/PR</span><span>Clinician tuned</span></div>
+        </div>
+        <div class="card">
+          <div class="img"><img src="img/Digital Thermometer.png" alt=""></div>
+          <h6>Thermometers</h6><div class="meta"><span>Fast read</span><span>±0.1°C</span></div>
+        </div>
+        <div class="card">
+          <div class="img"><img src="img/suturing kit.png" alt=""></div>
+          <h6>Skills & Suturing</h6><div class="meta"><span>Lab ready</span><span>Refillable</span></div>
+        </div>
+        <div class="card">
+          <div class="img"><img src="img/Bag.png" alt=""></div>
+          <h6>Bags & Accessories</h6><div class="meta"><span>Organized</span><span>Durable</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 6) TEAM (Enhanced) ================== -->
+<section class="section-lg team-wrap" id="team">
+  <div class="container container-tight">
+    <div class="text-center mb-4">
+      <span class="kicker reveal">PEOPLE</span>
+      <h2 class="display-hero reveal">Doctor-managed</h2>
+      <p class="lead-xl reveal">Clinical leadership guides every product decision.</p>
+    </div>
+
+    <div class="team-grid-pro">
+      <!-- Person 1 -->
+      <article class="person-card reveal tilt">
+        <span class="chip">Lead</span>
+        <div class="person-inner">
+          <div class="avatar">
+            <img src="img/team-1.jpg" alt="Dr. Hassan Abdulwahid" 
+                 onerror="this.closest('.avatar').setAttribute('data-fallback','true'); this.remove();">
+          </div>
+          <div class="person-meta">
+            <h5 class="underline">Dr. Hassan Abdulwahid</h5>
+            <small>Medical Director</small>
+          </div>
+        </div>
+      </article>
+
+      <!-- Person 2 -->
+      <article class="person-card reveal tilt">
+        <span class="chip">Quality</span>
+        <div class="person-inner">
+          <div class="avatar">
+            <img src="img/team-2.jpg" alt="Dr. A. Kareem"
+                 onerror="this.closest('.avatar').setAttribute('data-fallback','true'); this.remove();">
+          </div>
+          <div class="person-meta">
+            <h5 class="underline">Dr. A. Kareem</h5>
+            <small>Clinical Quality</small>
+          </div>
+        </div>
+      </article>
+
+      <!-- Person 3 -->
+      <article class="person-card reveal tilt">
+        <span class="chip">Training</span>
+        <div class="person-inner">
+          <div class="avatar">
+            <img src="img/team-3.jpg" alt="Dr. S. Rahman"
+                 onerror="this.closest('.avatar').setAttribute('data-fallback','true'); this.remove();">
+          </div>
+          <div class="person-meta">
+            <h5 class="underline">Dr. S. Rahman</h5>
+            <small>Education &amp; Training</small>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================== 7) CTA ================== -->
+<section class="section-lg">
+  <div class="container container-tight">
+    <div class="cta reveal">
+      <div class="row align-items-center g-3">
+        <div class="col-lg-8">
+          <h3 class="mb-1" style="font-weight:900; letter-spacing:.2px">Equip your clinic or class with confidence</h3>
+          <p class="mb-0" style="color:#e7eeff">Get curated bundles, quotes, and after-purchase support from our doctor-led team.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="contact.html" class="btn"><i class="fa-solid fa-paper-plane me-1"></i> Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- CONTACT / INSTAGRAM -->
+  <section class="about-contact">
+    <h2>Connect With Us</h2>
+    <p>Have questions or want to order directly? Reach out to us for pricing, product availability, and further negotiations.</p>
+    <a href="#" class="insta-link"><i class="fab fa-instagram"></i> Contact us on Instagram @Medify</a>
+  </section>
+
+
+ <!-- ================= PREMIUM FOOTER ================= -->
+<footer class="footer">
+  <div class="footer-overlay"></div>
+
+  <div class="container py-5">
+    <div class="row g-4">
+
+      <!-- BRAND / ABOUT -->
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-brand">
+          <h3><i class="fa-solid fa-globe"></i> Medify</h3>
+          <p>Healing through innovation and care — Medify delivers advanced medical devices and solutions trusted by healthcare professionals worldwide.</p>
+          <p>Healing through innovation and care — Medify delivers advanced medical devices and solutions trusted by healthcare professionals worldwide.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <div class="col-lg-2 col-md-6 col-sm-6">
+        <h5 class="footer-title">Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- PRODUCT CATEGORIES -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <h5 class="footer-title">Categories</h5>
+        <ul class="footer-links">
+          <li><a href="#">Defibrillators</a></li>
+          <li><a href="#">Diagnostic Tools</a></li>
+          <li><a href="#">Surgical Supplies</a></li>
+          <li><a href="#">Infection Control</a></li>
+          <li><a href="#">Respiratory Care</a></li>
+        </ul>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="footer-title">Stay Updated</h5>
+        <p>Subscribe to our newsletter for the latest medical tech insights and product updates.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+
+        <div class="footer-contact mt-4">
+          <p><i class="fa-solid fa-user-tie me-2"></i><strong>Managed by:</strong> Dr.Hassan Abdulwahid Hassan</p>
+          <p><i class="fa-solid fa-phone me-2"></i><strong>Phone:</strong> <a href="tel:07514591291">07514591291</a></p>
+          <p><i class="fab fa-instagram me-2"></i><strong>Instagram:</strong> <a href="#">Medify</a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="footer-divider" />
+
+    <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="mb-0">© 2025 Medify. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <span>|</span>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+            integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+            integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+            crossorigin="anonymous"></script>
+
+
+    <script src = "lang.js"></script>
+
+    <script src = "JS/cart.js"></script>
+
+<script>
+  // Automatically highlight the current page in the navbar
+  document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname.split("/").pop(); // e.g. "about.html"
+    const navLinks = document.querySelectorAll(".navbar .nav-link");
+
+    navLinks.forEach(link => {
+      const linkHref = link.getAttribute("href");
+
+      // Exact match OR partial match (for subfolders)
+      if (linkHref === currentPath || currentPath.includes(linkHref)) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  });
+
+  // Animate footer elements on scroll
+const footer = document.querySelector('.footer');
+window.addEventListener('scroll', () => {
+  const rect = footer.getBoundingClientRect();
+  if (rect.top < window.innerHeight - 100) {
+    footer.classList.add('visible');
+  }
+});
+
+// Animate sections on scroll
+    const sections = document.querySelectorAll('.about-section');
+    const revealSections = () => {
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          sec.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+
+</script>
+
+  <script>
+    const thumbs = document.querySelectorAll('.thumb');
+    const currentImage = document.getElementById('currentImage');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelector('.thumb.active')?.classList.remove('active');
+        thumb.classList.add('active');
+        currentImage.style.opacity = 0;
+        setTimeout(() => {
+          currentImage.src = thumb.src;
+          currentImage.style.opacity = 1;
+        }, 200);
+      });
+    });
+
+    // reveal on scroll
+    (function(){
+      const io = new IntersectionObserver((els)=>{
+        els.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+      },{threshold:.15});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
+
+    // counters
+    (function(){
+      const els = document.querySelectorAll('.count');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = +el.dataset.target;
+          let cur = 0;
+          const inc = Math.max(1, Math.floor(target/100));
+          const tick = () => {
+            cur += inc;
+            if(cur >= target){ el.textContent = target.toLocaleString(); }
+            else { el.textContent = cur.toLocaleString(); requestAnimationFrame(tick); }
+          };
+          tick();
+          io.unobserve(el);
+        });
+      },{threshold:.4});
+      els.forEach(el=>io.observe(el));
+    })();
+  </script>
+
+  
+<script>
+/* Highlight "About" in nav */
+document.querySelectorAll(".navbar .nav-link").forEach(a=>{
+  if((a.getAttribute("href")||"").includes("about")) a.classList.add("active");
+});
+
+/* Reveal on scroll (sections + stagger) */
+const revealIO = new IntersectionObserver((ents)=>{
+  ents.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+      revealIO.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+
+document.querySelectorAll('.reveal').forEach(el=>revealIO.observe(el));
+document.querySelectorAll('.stagger').forEach(el=>revealIO.observe(el));
+
+/* Counters */
+const counters = document.querySelectorAll('.count');
+const counterIO = new IntersectionObserver((ents)=>{
+  ents.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    const el = entry.target; const target = +el.dataset.target; let cur = 0;
+    const step = Math.max(1, Math.floor(target/120));
+    const tick = ()=>{ cur += step; if(cur>=target){ el.textContent = target.toLocaleString(); } else { el.textContent = cur.toLocaleString(); requestAnimationFrame(tick);} };
+    tick(); counterIO.unobserve(el);
+  });
+},{threshold:.5});
+counters.forEach(el=>counterIO.observe(el));
+
+/* Horizontal scroller: vertical wheel -> horizontal track */
+(function(){
+  const sec = document.getElementById('hz'); if(!sec) return;
+  const track = document.getElementById('hzTrack'); let x=0;
+  sec.addEventListener('wheel', (e)=>{
+    const rect = sec.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      e.preventDefault();
+      x -= e.deltaY * 0.9;
+      const max = Math.max(0, track.scrollWidth - rect.width);
+      x = Math.max(-max, Math.min(0, x));
+      track.style.transform = `translateX(${x}px)`;
+    }
+  }, {passive:false});
+})();
+</script>
+
+<script>
+  // Parallax tilt for team cards (no library)
+  document.querySelectorAll('.person-card.tilt').forEach(card => {
+    const maxX = 6, maxY = 8; // degrees
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rx = (0.5 - y) * maxX;
+      const ry = (x - 0.5) * maxY;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(900px) rotateX(0) rotateY(0)`;
+    });
+  });
+</script>
+
+
+
+
+</body>
+</html>

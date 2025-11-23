@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Stethoscope - Medify</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --primary-light: #3b82f6;
+      --accent: #60a5fa;
+      --accent-light: #93c5fd;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --bg-light: #f8fafc;
+      --transition: cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* =================== ENHANCED NAVBAR =================== */
+    .navbar-premium {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      transition: all 0.3s var(--transition);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s var(--transition);
+    }
+
+    .navbar-brand:hover {
+      color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .navbar-brand i {
+      font-size: 1.6rem;
+      transition: transform 0.5s var(--transition);
+    }
+
+    .navbar-brand:hover i {
+      transform: rotate(360deg) scale(1.1);
+    }
+
+    .nav-link {
+      color: var(--text-dark);
+      font-weight: 600;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      transition: all 0.3s var(--transition);
+      position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(37, 99, 235, 0.06);
+    }
+
+    /* =================== BREADCRUMB =================== */
+    .breadcrumb-section {
+      padding: 2rem 0 1rem;
+      animation: fadeInDown 0.8s var(--transition);
+    }
+
+    .breadcrumb {
+      background: transparent;
+      padding: 0;
+      margin: 0;
+    }
+
+    .breadcrumb-item {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-item a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s var(--transition);
+    }
+
+    .breadcrumb-item a:hover {
+      color: var(--primary-dark);
+    }
+
+    .breadcrumb-item.active {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =================== PRODUCT SECTION =================== */
+    .product-section {
+      padding: 2rem 0 4rem;
+      animation: fadeInUp 1s var(--transition);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product-container {
+      background: white;
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.1);
+      border: 2px solid rgba(96, 165, 250, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-container::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.1), transparent 70%);
+      border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-30px, 30px); }
+    }
+
+    /* =================== IMAGE GALLERY =================== */
+    .image-gallery {
+      position: relative;
+    }
+
+    .main-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 2px solid rgba(96, 165, 250, 0.2);
+      box-shadow: 0 16px 48px rgba(37, 99, 235, 0.12);
+      margin-bottom: 1.5rem;
+    }
+
+    .main-image-wrapper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.15), transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(37, 99, 235, 0.1), transparent 50%);
+    }
+
+    #currentImage {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+      transition: all 0.5s var(--transition);
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15));
+    }
+
+    .zoom-active #currentImage {
+      transform: scale(1.5);
+      cursor: zoom-out;
+    }
+
+    .zoom-icon {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid rgba(96, 165, 250, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      cursor: pointer;
+      z-index: 3;
+      transition: all 0.3s var(--transition);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .zoom-icon:hover {
+      transform: scale(1.1);
+      background: var(--primary);
+      color: white;
+    }
+
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 1rem;
+    }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      cursor: pointer;
+      object-fit: contain;
+      background: #f6f8fb;
+      border: 3px solid transparent;
+      transition: all 0.3s var(--transition);
+      padding: 0.5rem;
+    }
+
+    .thumb:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+    }
+
+    .thumb.active {
+      border-color: var(--primary);
+      background: rgba(37, 99, 235, 0.05);
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+    }
+
+    /* =================== PRODUCT DETAILS =================== */
+    .product-details {
+      position: relative;
+      z-index: 2;
+    }
+
+    .product-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(37, 99, 235, 0.15));
+      border: 2px solid rgba(96, 165, 250, 0.3);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .product-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .rating-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stars {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .stars i {
+      color: #f59e0b;
+      font-size: 1.1rem;
+    }
+
+    .rating-text {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .product-description {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .price-section {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(37, 99, 235, 0.05));
+      border: 2px solid rgba(96, 165, 250, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .price-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+      transition: all 0.3s var(--transition);
+    }
+
+    .features-list li:hover {
+      padding-left: 0.5rem;
+      background: rgba(96, 165, 250, 0.03);
+    }
+
+    .features-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .quantity-label {
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      background: white;
+      border: 2px solid rgba(96, 165, 250, 0.3);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .quantity-btn {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quantity-btn:hover {
+      background: rgba(37, 99, 235, 0.1);
+    }
+
+    .quantity-input {
+      width: 60px;
+      height: 44px;
+      border: none;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn-primary-custom {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary-custom::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      opacity: 0;
+      transition: opacity 0.3s var(--transition);
+    }
+
+    .btn-primary-custom:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary-custom:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-primary-custom span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-secondary-custom {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border: 2px solid rgba(96, 165, 250, 0.3);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+    }
+
+    .btn-secondary-custom:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-3px) rotate(5deg);
+    }
+
+    /* =================== TABS SECTION =================== */
+    .tabs-section {
+      margin-top: 4rem;
+      padding: 3rem 0;
+      border-top: 2px solid rgba(96, 165, 250, 0.1);
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid rgba(96, 165, 250, 0.1);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 1rem 1.5rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      position: relative;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s var(--transition);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .spec-item {
+      background: white;
+      border: 2px solid rgba(96, 165, 250, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s var(--transition);
+    }
+
+    .spec-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .spec-label {
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .spec-value {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    /* =================== RECOMMENDATIONS =================== */
+    .recommendations-section {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, #f8fafc 0%, #eef3ff 100%);
+      margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .recommendations-section::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.15), transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .reco-carousel {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    .reco-track {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 1rem 0.5rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .reco-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .reco-card {
+      flex: 0 0 280px;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid rgba(96, 165, 250, 0.15);
+      box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+      transition: all 0.4s var(--transition);
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .reco-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 24px 64px rgba(37, 99, 235, 0.2);
+      border-color: var(--accent);
+    }
+
+    .reco-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-weight: 800;
+      font-size: 0.75rem;
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .reco-image {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reco-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.1), transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(37, 99, 235, 0.08), transparent 50%);
+    }
+
+    .reco-image img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.5s var(--transition);
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+    }
+
+    .reco-card:hover .reco-image img {
+      transform: scale(1.1) rotate(3deg);
+    }
+
+    .reco-info {
+      padding: 1.5rem;
+    }
+
+    .reco-info h5 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .reco-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .reco-price {
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--text-dark);
+    }
+
+    .reco-tag {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(96, 165, 250, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid rgba(96, 165, 250, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .carousel-nav:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-nav.left {
+      left: 0;
+    }
+
+    .carousel-nav.right {
+      right: 0;
+    }
+
+    /* =================== RESPONSIVE =================== */
+    @media (max-width: 991px) {
+      .product-container {
+        padding: 2rem;
+      }
+
+      .main-image-wrapper {
+        height: 400px;
+        margin-bottom: 2rem;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn-secondary-custom {
+        width: 100%;
+        height: 60px;
+      }
+
+      .reco-carousel {
+        padding: 0 20px;
+      }
+
+      .carousel-nav {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .product-container {
+        padding: 1.5rem;
+      }
+
+      .main-image-wrapper {
+        height: 300px;
+      }
+
+      .thumbnail-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .tabs-nav {
+        overflow-x: auto;
+        scrollbar-width: thin;
+      }
+
+      .tab-btn {
+        white-space: nowrap;
+      }
+
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =================== NAVBAR =================== -->
+  <nav class="navbar navbar-expand-lg navbar-premium py-3">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <i class="fa-solid fa-globe"></i> Medify
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="../index.html"><i class="fa-solid fa-house me-1"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../tutorial.html"><i class="bi bi-book-half me-1"></i>Tutorial</a></li>
+          <li class="nav-item"><a class="nav-link" href="../about.html"><i class="fa-solid fa-user me-1"></i>About</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contact.html"><i class="fa-solid fa-envelope me-1"></i>Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =================== BREADCRUMB =================== -->
+  <section class="breadcrumb-section">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#"><i class="fas fa-home me-1"></i>Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Products</a></li>
+          <li class="breadcrumb-item"><a href="#">Stethoscopes</a></li>
+          <li class="breadcrumb-item active">Medical Stethoscope</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- =================== PRODUCT SECTION =================== -->
+  <section class="product-section">
+    <div class="container">
+      <div class="product-container">
+        <div class="row g-5">
+          <!-- Image Gallery -->
+          <div class="col-lg-6">
+            <div class="image-gallery">
+              <div class="main-image-wrapper" id="imageWrapper">
+                <img id="currentImage" src = "../img/realistic-medical-stethoscope-on-transparent-background-free-png.webp" alt="Medical Stethoscope">
+                <div class="zoom-icon" id="zoomToggle">
+                  <i class="fas fa-search-plus"></i>
+                </div>
+              </div>
+              <div class="thumbnail-grid">
+                <img src = "../img/realistic-medical-stethoscope-on-transparent-background-free-png.webp" class="thumb active" alt="">
+                <img src = "../img/Stethoscopes/Stethosecope Red.webp" class="thumb" alt="">
+                <img src = "../img/Stethoscopes/Stethosecope Orange.png" class="thumb" alt="">
+                <img src = "../img/Stethoscopes/Stethoscop Pink.png class="thumb" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="col-lg-6">
+            <div class="product-details">
+              <span class="product-badge">
+                <i class="fas fa-certificate"></i> Best Seller
+              </span>
+
+              <h1 class="product-title">Premium Medical Stethoscope</h1>
+
+              <div class="rating-section">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="rating-text">4.8 (256 reviews)</span>
+              </div>
+
+              <p class="product-description">
+                Experience next-generation medical precision with our Premium Medical Stethoscope. 
+                Designed for professional healthcare practitioners, it delivers crystal-clear acoustic 
+                quality with advanced sound isolation technology. Perfect for cardiac, pulmonary, and 
+                general physical examinations.
+              </p>
+
+              <div class="price-section">
+                <div class="price-label">Price</div>
+                <div class="price">28,000 IQD</div>
+              </div>
+
+              <ul class="features-list">
+                <li>
+                  <div class="feature-icon"><i class="fas fa-check"></i></div>
+                  <div>
+                    <strong>Superior Acoustics</strong><br>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Crystal-clear sound transmission</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                  <div>
+                    <strong>Durable Construction</strong><br>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Medical-grade materials, lifetime warranty</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-icon"><i class="fas fa-user-md"></i></div>
+                  <div>
+                    <strong>Professional Grade</strong><br>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Trusted by healthcare professionals worldwide</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-icon"><i class="fas fa-box"></i></div>
+                  <div>
+                    <strong>Complete Kit</strong><br>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Includes carrying case and extra eartips</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="quantity-selector">
+                <span class="quantity-label">Quantity:</span>
+                <div class="quantity-controls">
+                  <button class="quantity-btn" id="decreaseBtn"><i class="fas fa-minus"></i></button>
+                  <input type="number" class="quantity-input" id="quantityInput" value="1" min="1" max="99" readonly>
+                  <button class="quantity-btn" id="increaseBtn"><i class="fas fa-plus"></i></button>
+                </div>
+              </div>
+
+              <div class="action-buttons">
+                <button class="btn-primary-custom" id="addToCartBtn">
+                  <span><i class="fas fa-shopping-cart"></i> Add to Cart</span>
+                </button>
+                <button class="btn-secondary-custom" id="wishlistBtn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="btn-secondary-custom" id="shareBtn">
+                  <i class="fas fa-share-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =================== TABS SECTION =================== -->
+        <div class="tabs-section">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="description">
+              <i class="fas fa-info-circle me-2"></i>Description
+            </button>
+            <button class="tab-btn" data-tab="specifications">
+              <i class="fas fa-cog me-2"></i>Specifications
+            </button>
+            <button class="tab-btn" data-tab="reviews">
+              <i class="fas fa-star me-2"></i>Reviews (256)
+            </button>
+            <button class="tab-btn" data-tab="shipping">
+              <i class="fas fa-truck me-2"></i>Shipping & Returns
+            </button>
+          </div>
+
+          <!-- Description Tab -->
+          <div class="tab-content active" id="description">
+            <h3 style="color: var(--primary-dark); font-weight: 800; margin-bottom: 1.5rem;">Product Description</h3>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem;">
+              Our Premium Medical Stethoscope represents the pinnacle of diagnostic acoustic technology. 
+              Engineered with precision-machined components and advanced sound chamber design, it delivers 
+              unparalleled clarity across all frequency ranges.
+            </p>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem;">
+              The dual-head chestpiece features both diaphragm and bell sides, allowing comprehensive 
+              examination of high and low-frequency sounds. The lightweight aluminum construction ensures 
+              comfort during extended use, while the premium tubing provides excellent acoustic transmission 
+              with minimal ambient noise interference.
+            </p>
+            <p style="color: var(--text-muted); line-height: 1.8;">
+              Perfect for cardiologists, nurses, medical students, and general practitioners, this 
+              stethoscope combines professional-grade performance with exceptional value.
+            </p>
+          </div>
+
+          <!-- Specifications Tab -->
+          <div class="tab-content" id="specifications">
+            <h3 style="color: var(--primary-dark); font-weight: 800; margin-bottom: 1.5rem;">Technical Specifications</h3>
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Chestpiece Type</div>
+                <div class="spec-value">Dual-Head (Diaphragm & Bell)</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Tubing Material</div>
+                <div class="spec-value">Latex-Free PVC</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Tubing Length</div>
+                <div class="spec-value">28 inches (71 cm)</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Chestpiece Material</div>
+                <div class="spec-value">Aluminum Alloy</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Weight</div>
+                <div class="spec-value">150 grams</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Color Options</div>
+                <div class="spec-value">Black, Navy, Burgundy, Pink</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Warranty</div>
+                <div class="spec-value">Lifetime Acoustic Warranty</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Certification</div>
+                <div class="spec-value">ISO 13485, CE Marked</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews Tab -->
+          <div class="tab-content" id="reviews">
+            <h3 style="color: var(--primary-dark); font-weight: 800; margin-bottom: 1.5rem;">Customer Reviews</h3>
+            <div style="background: rgba(96, 165, 250, 0.05); border: 2px solid rgba(96, 165, 250, 0.2); border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                  <div style="font-size: 3rem; font-weight: 900; color: var(--primary);">4.8</div>
+                  <div class="stars" style="justify-content: center; margin: 0.5rem 0;">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <div style="color: var(--text-muted); font-weight: 600;">256 reviews</div>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <span style="width: 60px; font-weight: 600;">5 star</span>
+                    <div style="flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 75%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                    </div>
+                    <span style="width: 40px; text-align: right; color: var(--text-muted);">192</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <span style="width: 60px; font-weight: 600;">4 star</span>
+                    <div style="flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 15%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                    </div>
+                    <span style="width: 40px; text-align: right; color: var(--text-muted);">38</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <span style="width: 60px; font-weight: 600;">3 star</span>
+                    <div style="flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 6%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                    </div>
+                    <span style="width: 40px; text-align: right; color: var(--text-muted);">15</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <span style="width: 60px; font-weight: 600;">2 star</span>
+                    <div style="flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 3%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                    </div>
+                    <span style="width: 40px; text-align: right; color: var(--text-muted);">7</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span style="width: 60px; font-weight: 600;">1 star</span>
+                    <div style="flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 1%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                    </div>
+                    <span style="width: 40px; text-align: right; color: var(--text-muted);">4</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); text-align: center; padding: 2rem;">
+              <i class="fas fa-comments" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display: block;"></i>
+              Customer reviews help improve our products. Share your experience!
+            </p>
+          </div>
+
+          <!-- Shipping Tab -->
+          <div class="tab-content" id="shipping">
+            <h3 style="color: var(--primary-dark); font-weight: 800; margin-bottom: 1.5rem;">Shipping & Returns</h3>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div style="background: white; border: 2px solid rgba(96, 165, 250, 0.2); border-radius: 16px; padding: 2rem;">
+                  <div style="width: 60px; height: 60px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; margin-bottom: 1rem;">
+                    <i class="fas fa-shipping-fast"></i>
+                  </div>
+                  <h4 style="color: var(--text-dark); font-weight: 800; margin-bottom: 1rem;">Fast Shipping</h4>
+                  <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem;">
+                    • Free shipping on orders over 50,000 IQD
+                  </p>
+                  <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem;">
+                    • Standard delivery: 2-4 business days
+                  </p>
+                  <p style="color: var(--text-muted); line-height: 1.6;">
+                    • Express delivery available
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div style="background: white; border: 2px solid rgba(96, 165, 250, 0.2); border-radius: 16px; padding: 2rem;">
+                  <div style="width: 60px; height: 60px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; margin-bottom: 1rem;">
+                    <i class="fas fa-undo"></i>
+                  </div>
+                  <h4 style="color: var(--text-dark); font-weight: 800; margin-bottom: 1rem;">Easy Returns</h4>
+                  <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem;">
+                    • 30-day return policy
+                  </p>
+                  <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem;">
+                    • Free return shipping
+                  </p>
+                  <p style="color: var(--text-muted); line-height: 1.6;">
+                    • Full refund or exchange
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== RECOMMENDATIONS =================== -->
+  <section class="recommendations-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>You May Also Like</h2>
+        <p>Explore similar products chosen just for you</p>
+      </div>
+
+      <div class="reco-carousel">
+        <button class="carousel-nav left" id="scrollLeft">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <div class="reco-track" id="recoTrack">
+          <!-- Card 1 -->
+          <a href="../Product-pages/Item5.html" class="reco-card">
+            <span class="reco-badge">Bestseller</span>
+            <div class="reco-image">
+              <img src = "../img/Digital Blood Presure.png" alt="Digital Blood Pressure">
+            </div>
+            <div class="reco-info">
+              <h5>Digital Blood Pressure Monitor</h5>
+              <div class="reco-meta">
+                <span class="reco-price">21,000 IQD</span>
+                <span class="reco-tag">Fast ship</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 2 -->
+          <a href="../Product-pages/Item4.html" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/Pulse Oximeter.png" alt="Pulse Oximeter">
+            </div>
+            <div class="reco-info">
+              <h5>Pulse Oximeter</h5>
+              <div class="reco-meta">
+                <span class="reco-price">4,000 IQD</span>
+                <span class="reco-tag">New</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 3 -->
+          <a href="../Product-pages/Item12.html" class="reco-card">
+            <span class="reco-badge">Popular</span>
+            <div class="reco-image">
+              <img src="../img/Light Pen.png" alt="Light Pen">
+            </div>
+            <div class="reco-info">
+              <h5>Diagnostic Light Pen</h5>
+              <div class="reco-meta">
+                <span class="reco-price">4,000 IQD</span>
+                <span class="reco-tag">In stock</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 4 -->
+          <a href="../Product-pages/Item8.html" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/Digital Thermometer.png" alt="Digital Thermometer">
+            </div>
+            <div class="reco-info">
+              <h5>Digital Thermometer</h5>
+              <div class="reco-meta">
+                <span class="reco-price">3,000 IQD</span>
+                <span class="reco-tag">Sale</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 5 -->
+          <a href="#" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/suturing kit.png" alt="Suturing Kit">
+            </div>
+            <div class="reco-info">
+              <h5>Professional Suturing Kit</h5>
+              <div class="reco-meta">
+                <span class="reco-price">25,000 IQD</span>
+                <span class="reco-tag">Bundle</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 6 -->
+          <a href="#" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/Bag.png" alt="Medical Bag">
+            </div>
+            <div class="reco-info">
+              <h5>Professional Medical Bag</h5>
+              <div class="reco-meta">
+                <span class="reco-price">10,000 IQD</span>
+                <span class="reco-tag">Premium</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 7 -->
+          <a href="#" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/Bag.png" alt="Medical Bag">
+            </div>
+            <div class="reco-info">
+              <h5>Professional Medical Bag</h5>
+              <div class="reco-meta">
+                <span class="reco-price">10,000 IQD</span>
+                <span class="reco-tag">Premium</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 8 -->
+          <a href="#" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/Bag.png" alt="Medical Bag">
+            </div>
+            <div class="reco-info">
+              <h5>Professional Medical Bag</h5>
+              <div class="reco-meta">
+                <span class="reco-price">10,000 IQD</span>
+                <span class="reco-tag">Premium</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 9 -->
+          <a href="#" class="reco-card">
+            <div class="reco-image">
+              <img src="../img/Bag.png" alt="Medical Bag">
+            </div>
+            <div class="reco-info">
+              <h5>Professional Medical Bag</h5>
+              <div class="reco-meta">
+                <span class="reco-price">10,000 IQD</span>
+                <span class="reco-tag">Premium</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+        <button class="carousel-nav right" id="scrollRight">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SCRIPTS =================== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Image Gallery & Thumbnails
+    const thumbs = document.querySelectorAll('.thumb');
+    const currentImage = document.getElementById('currentImage');
+    const imageWrapper = document.getElementById('imageWrapper');
+    const zoomToggle = document.getElementById('zoomToggle');
+    let isZoomed = false;
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelector('.thumb.active')?.classList.remove('active');
+        thumb.classList.add('active');
+        currentImage.style.opacity = '0';
+        setTimeout(() => {
+          currentImage.src = thumb.src;
+          currentImage.style.opacity = '1';
+        }, 200);
+      });
+    });
+
+    // Zoom functionality
+    zoomToggle.addEventListener('click', () => {
+      isZoomed = !isZoomed;
+      if (isZoomed) {
+        imageWrapper.classList.add('zoom-active');
+        zoomToggle.innerHTML = '<i class="fas fa-search-minus"></i>';
+      } else {
+        imageWrapper.classList.remove('zoom-active');
+        zoomToggle.innerHTML = '<i class="fas fa-search-plus"></i>';
+      }
+    });
+
+    // Quantity Controls
+    const quantityInput = document.getElementById('quantityInput');
+    const increaseBtn = document.getElementById('increaseBtn');
+    const decreaseBtn = document.getElementById('decreaseBtn');
+
+    increaseBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value);
+      if (value < 99) {
+        quantityInput.value = value + 1;
+      }
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value);
+      if (value > 1) {
+        quantityInput.value = value - 1;
+      }
+    });
+
+    // Add to Cart Button
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    addToCartBtn.addEventListener('click', () => {
+      const originalText = addToCartBtn.innerHTML;
+      addToCartBtn.innerHTML = '<span><i class="fas fa-check"></i> Added to Cart!</span>';
+      addToCartBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      
+      setTimeout(() => {
+        addToCartBtn.innerHTML = originalText;
+        addToCartBtn.style.background = '';
+      }, 2000);
+    });
+
+    // Wishlist Button
+    const wishlistBtn = document.getElementById('wishlistBtn');
+    let isWishlisted = false;
+    wishlistBtn.addEventListener('click', () => {
+      isWishlisted = !isWishlisted;
+      if (isWishlisted) {
+        wishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
+        wishlistBtn.style.color = '#ef4444';
+      } else {
+        wishlistBtn.innerHTML = '<i class="far fa-heart"></i>';
+        wishlistBtn.style.color = '';
+      }
+    });
+
+    // Share Button
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Premium Medical Stethoscope',
+          text: 'Check out this amazing stethoscope!',
+          url: window.location.href
+        });
+      } else {
+        alert('Product URL copied to clipboard!');
+      }
+    });
+
+    // Tabs System
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+      });
+    });
+
+    // Recommendations Carousel
+    const recoTrack = document.getElementById('recoTrack');
+    const scrollLeftBtn = document.getElementById('scrollLeft');
+    const scrollRightBtn = document.getElementById('scrollRight');
+
+    scrollLeftBtn.addEventListener('click', () => {
+      recoTrack.scrollBy({ left: -320, behavior: 'smooth' });
+    });
+
+    scrollRightBtn.addEventListener('click', () => {
+      recoTrack.scrollBy({ left: 320, behavior: 'smooth' });
+    });
+
+    // Drag to scroll for recommendations
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+
+    recoTrack.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.pageX - recoTrack.offsetLeft;
+      scrollLeft = recoTrack.scrollLeft;
+      recoTrack.style.cursor = 'grabbing';
+    });
+
+    recoTrack.addEventListener('mouseleave', () => {
+      isDragging = false;
+      recoTrack.style.cursor = 'grab';
+    });
+
+    recoTrack.addEventListener('mouseup', () => {
+      isDragging = false;
+      recoTrack.style.cursor = 'grab';
+    });
+
+    recoTrack.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - recoTrack.offsetLeft;
+      const walk = (x - startX) * 2;
+      recoTrack.scrollLeft = scrollLeft - walk;
+    });
+
+    // Prevent link click during drag
+    let moving = false;
+    recoTrack.addEventListener('mousedown', () => { moving = false; });
+    recoTrack.addEventListener('mousemove', () => { moving = true; });
+    recoTrack.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', e => { if (moving) e.preventDefault(); });
+    });
+  </script>
+</body>
+</html>

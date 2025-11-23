@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+
+<h1>Products</h1>
+
+<!-- Example Product -->
+<div class="product">
+    <h2>Product 1</h2>
+    <p>Price: $10</p>
+    <button onclick="addToCart('Product 1', 10)">Add to Cart</button>
+</div>
+
+<div class="product">
+    <h2>Product 2</h2>
+    <p>Price: $25</p>
+    <button onclick="addToCart('Product 2', 25)">Add to Cart</button>
+</div>
+
+<div class="product">
+    <h2>Product 3</h2>
+    <p>Price: $7</p>
+    <button onclick="addToCart('Product 3', 7)">Add to Cart</button>
+</div>
+
+<script>
+function addToCart(name, price) {
+    // Get existing cart or create empty one
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Add item
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    // Save updated cart
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(name + " added to cart!");
+}
+</script>
+
+</body>
+</html>

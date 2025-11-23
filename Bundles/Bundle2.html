@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundle Deals - Medify</title>
+
+    <!-- Bootstrap & Font Awesome CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --page-bg: #f6f8fb;
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #60a5fa;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --transition: 0.35s ease;
+            --radius: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Poppins", sans-serif;
+            background: var(--page-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .navbar-premium {
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.08);
+            transition: background var(--transition), box-shadow var(--transition);
+            animation: navbarEnter 0.8s ease forwards;
+        }
+
+        @keyframes navbarEnter {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar-brand {
+            position: relative;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.3px;
+            overflow: hidden;
+            transition: color var(--transition), transform var(--transition);
+        }
+
+        .navbar-brand i {
+            font-size: 1.4rem;
+            transition: transform 0.4s ease, color var(--transition);
+        }
+
+        .navbar-brand::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-20deg);
+            transition: 0.6s;
+        }
+
+        .navbar-brand:hover::after {
+            left: 130%;
+        }
+
+        .navbar-brand:hover {
+            color: var(--primary-dark);
+            transform: scale(1.05);
+            text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+        }
+
+        .navbar-brand:hover i {
+            transform: rotate(10deg) scale(1.1);
+            color: var(--accent);
+        }
+
+        .navbar-premium .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color var(--transition), transform var(--transition);
+        }
+
+        .navbar-premium .nav-link:hover,
+        .navbar-premium .nav-link.active {
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .navbar-premium .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width var(--transition);
+        }
+
+        .navbar-premium .nav-link:hover::after,
+        .navbar-premium .nav-link.active::after {
+            width: 100%;
+        }
+
+        .navbar .container {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: .5rem;
+            position: relative;
+        }
+
+        .navbar-brand {
+            grid-column: 1;
+            justify-self: start;
+            margin: 0 !important;
+        }
+
+        .lang-switcher {
+            grid-column: 2;
+            justify-self: center;
+        }
+
+        .navbar-toggler {
+            grid-column: 3;
+            justify-self: end;
+            border: none;
+            outline: none;
+        }
+
+        .navbar-collapse {
+            grid-column: 1 / -1;
+        }
+
+        .lang-switcher .btn {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            transition: .3s;
+        }
+
+        .lang-switcher .btn:hover {
+            background: rgba(37, 99, 235, .07);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+        }
+
+        @media (min-width: 992px) {
+            .navbar .container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .lang-switcher {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Bundle Section */
+        .bundle-section {
+            padding: 80px 0 100px;
+            background: var(--page-bg);
+            min-height: 100vh;
+        }
+
+        .bundle-header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bundle-title {
+            font-weight: 700;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .bundle-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .bundle-sub {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
+
+        /* Bundle Items Container */
+        .bundle-items-container {
+            perspective: 1000px;
+        }
+
+        .bundle-item {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 28px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(60px) rotateX(15deg);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bundle-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transition: 0.6s;
+        }
+
+        .bundle-item.animate-in {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .bundle-item:hover::before {
+            left: 100%;
+        }
+
+        .bundle-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.25);
+            border-color: var(--accent);
+        }
+
+        .bundle-item-inner {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .bundle-item-image {
+            flex-shrink: 0;
+            width: 140px;
+            height: 140px;
+            overflow: hidden;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f0f7ff, #e7f0ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bundle-item-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .bundle-item:hover .bundle-item-image::after {
+            opacity: 1;
+        }
+
+        .bundle-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 15px;
+            transition: 0.4s ease;
+        }
+
+        .bundle-item:hover .bundle-item-image img {
+            transform: scale(1.1) rotate(3deg);
+        }
+
+        .bundle-item-details {
+            flex: 1;
+        }
+
+        .bundle-item-details h5 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .bundle-item-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-badge {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
+        }
+
+        /* Calculation Section */
+        .calculation-section {
+            margin-top: 60px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s ease;
+        }
+
+        .calculation-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .calculation-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: cardFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.01);
+            }
+        }
+
+        .calculation-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .calculation-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 3px;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.4), 
+                rgba(96, 165, 250, 0.6), 
+                rgba(255, 255, 255, 0.4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.5;
+                filter: brightness(1);
+            }
+            50% {
+                opacity: 1;
+                filter: brightness(1.5);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .calculation-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .calculation-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: scale(1.02);
+                text-shadow: 0 4px 20px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.3rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.4s ease;
+        }
+
+        .price-row.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .price-row:last-child {
+            border-bottom: none;
+        }
+
+        .price-label {
+            font-weight: 600;
+        }
+
+        .price-value {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .total-row {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .original-price {
+            position: relative;
+            display: inline-block;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .strike-through {
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            width: 0;
+            height: 4px;
+            background: #ef4444;
+            transform: translateY(-50%) rotate(-5deg);
+            transform-origin: left;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+        }
+
+        .strike-through.animate {
+            animation: strikeThrough 0.8s ease-in-out forwards;
+        }
+
+        @keyframes strikeThrough {
+            to {
+                width: calc(100% + 20px);
+            }
+        }
+
+        .discount-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 20px 0;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: priceGlow 2s ease-in-out infinite;
+            animation-play-state: paused;
+        }
+
+        .discount-price.show {
+            animation: priceReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                       priceGlow 2s ease-in-out infinite 0.6s;
+        }
+
+        @keyframes priceGlow {
+            0%, 100% {
+                text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+                            0 0 30px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+                            0 0 50px rgba(255, 255, 255, 0.6),
+                            0 0 80px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        @keyframes priceReveal {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 16px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .savings-badge.show {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 18px 50px;
+            background: white;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.5);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Timer Badge */
+        .timer-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ef4444;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .bundle-title {
+                font-size: 2rem;
+            }
+
+            .bundle-item-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .bundle-item-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .calculation-card {
+                padding: 30px 20px;
+            }
+
+            .discount-price {
+                font-size: 2.2rem;
+            }
+
+            .calculation-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <nav class="navbar navbar-expand-lg navbar-premium sticky-top py-3">
+  <div class="container">
+
+    <!-- Brand (left) -->
+    <a class="navbar-brand d-flex align-items-center" href="../index.html">
+      <i class="fa-solid fa-globe"></i> Medify
+    </a>
+
+    <!-- Language (center) -->
+    <div class="lang-switcher">
+      <div class="dropdown">
+        <button class="btn btn-light rounded-pill px-3 py-2 d-flex align-items-center gap-2 shadow-sm"
+                type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-translate text-primary"></i>
+          <span id="currentLangLabel" class="fw-semibold">English</span>
+        </button>
+        <ul class="dropdown-menu text-center shadow-sm" aria-labelledby="langDropdown">
+          <li><button class="dropdown-item lang-option" data-lang="en">English</button></li>
+          <li><button class="dropdown-item lang-option" data-lang="ku">کوردی</button></li>
+          <li><button class="dropdown-item lang-option" data-lang="ar">العربية</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Toggler (right) -->
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+        <li class="nav-item"><a id="navHome" class="nav-link" href="../index.html"><i class="fa-solid fa-house me-1"></i><span>Home</span></a></li>
+        <li class="nav-item"><a id="navTutorial" class="nav-link" href="../Tutorial.html"><i class="bi bi-book-half me-1"></i><span>Tutorial</span></a></li>
+        <li class="nav-item"><a id="navAbout" class="nav-link" href="../about.html"><i class="fa-solid fa-user me-1"></i><span>About</span></a></li>
+        <li class="nav-item"><a id="navContact" class="nav-link" href="../contact.html"><i class="fa-solid fa-envelope me-1"></i><span>Contact</span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <section class="bundle-section">
+        <div class="container">
+            <div class="bundle-header">
+                <h1 class="bundle-title">✨ Medify Premium Glow Bundle</h1>
+                <p class="bundle-sub">A complete medical equipment kit — professional quality, incredible value.</p>
+            </div>
+
+            <div class="bundle-items-container">
+                <div class="bundle-item" data-price="21000">
+                    <div class="timer-badge">⏰ Limited Offer</div>
+                    <div class="bundle-item-inner">
+                        <div class="bundle-item-image">
+                            <img src="../img/Digital Blood Presure.png" alt="Digital Blood Pressure">
+                        </div>
+                        <div class="bundle-item-details">
+                            <h5>Digital Blood Pressure Monitor</h5>
+                            <div class="bundle-item-price">
+                                <span class="price-badge">21,000 IQD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bundle-item" data-price="4000">
+                    <div class="bundle-item-inner">
+                        <div class="bundle-item-image">
+                            <img src="../img/Digital Thermometer.png" alt="Digital Thermometer">
+                        </div>
+                        <div class="bundle-item-details">
+                            <h5>Digital Thermometer</h5>
+                            <div class="bundle-item-price">
+                                <span class="price-badge">4,000 IQD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bundle-item" data-price="4000">
+                    <div class="bundle-item-inner">
+                        <div class="bundle-item-image">
+                            <img src="../img/Pulse Oximeter.png" alt="Pulse Oximeter">
+                        </div>
+                        <div class="bundle-item-details">
+                            <h5>Pulse Oximeter</h5>
+                            <div class="bundle-item-price">
+                                <span class="price-badge">4,000 IQD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculation-section">
+                <div class="calculation-card">
+                    <div class="calculation-content">
+                        <h2 class="calculation-title">🎁 Complete Bundle Calculation</h2>
+                        
+                        <div id="priceBreakdown"></div>
+
+                        <div class="total-row price-row" id="totalRow">
+                            <span class="price-label">Total Regular Price:</span>
+                            <span class="price-value">
+                                <span class="original-price">
+                                    <span id="originalTotal">29,000</span> IQD
+                                    <span class="strike-through"></span>
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="discount-price" id="discountPrice">
+                            20,000 IQD
+                        </div>
+
+                        <div class="text-center">
+                            <div class="savings-badge" id="savingsBadge">
+                                🎉 You Save: 9,000 IQD (31% OFF)
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="#" class="cta-button">
+                                <span>🛒 Get Bundle Now</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bundleItems = document.querySelectorAll('.bundle-item');
+            const calculationSection = document.querySelector('.calculation-section');
+            const priceBreakdown = document.getElementById('priceBreakdown');
+            
+            // Animate items one by one
+            bundleItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('animate-in');
+                    
+                    // After all items are shown, show calculation
+                    if (index === bundleItems.length - 1) {
+                        setTimeout(() => {
+                            showCalculation();
+                        }, 600);
+                    }
+                }, index * 500);
+            });
+
+            function showCalculation() {
+                calculationSection.classList.add('show');
+                
+                // Build price breakdown
+                let html = '';
+                const items = [
+                    { name: 'Digital Blood Pressure Monitor', price: '21,000' },
+                    { name: 'Digital Thermometer', price: '4,000' },
+                    { name: 'Pulse Oximeter', price: '4,000' }
+                ];
+
+                items.forEach((item, index) => {
+                    html += `
+                        <div class="price-row" style="transition-delay: ${index * 0.2}s">
+                            <span class="price-label">${item.name}</span>
+                            <span class="price-value">${item.price} IQD</span>
+                        </div>
+                    `;
+                });
+
+                priceBreakdown.innerHTML = html;
+
+                // Animate price rows
+                setTimeout(() => {
+                    document.querySelectorAll('#priceBreakdown .price-row').forEach(row => {
+                        row.classList.add('show');
+                    });
+                }, 300);
+
+                // Show total and animate strike-through
+                setTimeout(() => {
+                    document.getElementById('totalRow').classList.add('show');
+                    
+                    setTimeout(() => {
+                        document.querySelector('.strike-through').classList.add('animate');
+                        
+                        // Show discount price
+                        setTimeout(() => {
+                            document.getElementById('discountPrice').classList.add('show');
+                            
+                            // Show savings badge
+                            setTimeout(() => {
+                                document.getElementById('savingsBadge').classList.add('show');
+                                createSparkles();
+                            }, 300);
+                        }, 800);
+                    }, 500);
+                }, 1000);
+            }
+
+            function createSparkles() {
+                const card = document.querySelector('.calculation-card');
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'sparkle';
+                        sparkle.style.left = Math.random() * 100 + '%';
+                        sparkle.style.top = Math.random() * 100 + '%';
+                        sparkle.style.animationDelay = Math.random() * 1 + 's';
+                        card.appendChild(sparkle);
+                        
+                        setTimeout(() => sparkle.remove(), 2000);
+                    }, i * 100);
+                }
+            }
+
+            // Navbar active link
+            const currentPath = window.location.pathname.split("/").pop();
+            document.querySelectorAll(".navbar .nav-link").forEach(link => {
+                const linkHref = link.getAttribute("href");
+                if (linkHref === currentPath || currentPath.includes(linkHref)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+    <script src = "../lang.js"> </script>
+</body>
+</html>
